@@ -6,18 +6,16 @@ using CitizenFX.Core.Native;
 using CitizenFX.Core.UI;
 using NativeUI;
 
-namespace GNPoliceMenu
+namespace GNPolicUniforms
 {
     public class MainMenu : BaseScript
     {
         private MenuPool _menuPool;
         private UIMenu mainMenu;
             
-        
-        ///Player Options///
         public void PlayerOptions(UIMenu menu)
         {
-            var playeroptionssub = _menuPool.AddSubMenu(menu, "Player Options");
+            var playeroptionssub = _menuPool.AddSubMenu(menu, "Police Uniforms");
             for (int i = 0; i < 1; i++) ;
 
             playeroptionssub.MouseEdgeEnabled = false;
@@ -25,7 +23,7 @@ namespace GNPoliceMenu
             
             
             /// Uniforms ///
-            var uniforms = _menuPool.AddSubMenu(playeroptionssub, "Uniforms");
+            var uniforms = _menuPool.AddSubMenu(playeroptionssub, "Police");
             for (int i = 0; i < 1; i++) ;
 
             uniforms.MouseEdgeEnabled = false;
@@ -38,7 +36,7 @@ namespace GNPoliceMenu
             lspduniforms.ControlDisablingEnabled = false;
             
                         /// Rookie Ped ///
-            var cop01 = new UIMenuItem("Rookie", "PlaceHolder");
+            var cop01 = new UIMenuItem("Rookie", "");
             lspduniforms.AddItem(cop01);
             lspduniforms.OnItemSelect += (sender, item, index) =>
             {
@@ -57,7 +55,7 @@ namespace GNPoliceMenu
             
             
                         /// Sheriff Ped ///
-            var sheriff01 = new UIMenuItem("Sheriff", "PlaceHolder");
+            var sheriff01 = new UIMenuItem("Sheriff", "");
             sheriffuniforms.AddItem(sheriff01);
             sheriffuniforms.OnItemSelect += (sender, item, index) =>
             {
@@ -77,7 +75,7 @@ namespace GNPoliceMenu
             
             
             /// FIB PED ///    
-            var fib = new UIMenuItem("FIB", "PlaceHolder");
+            var fib = new UIMenuItem("FIB", "");
             fibuniforms.AddItem(fib);
             fibuniforms.OnItemSelect += (sender, item, index) =>
             {
@@ -87,51 +85,43 @@ namespace GNPoliceMenu
                 }
             };
             
-        }    
-      
-                
-        
-        
-            /// Discord ///
-        public void DiscordLink(UIMenu menu)
-        {
-            var discord = _menuPool.AddSubMenu(menu, "Discord");
+            var emsfiresub = _menuPool.AddSubMenu(menu, "EMS/Fire");
             for (int i = 0; i < 1; i++) ;
 
-            discord.MouseEdgeEnabled = false;
-            discord.ControlDisablingEnabled = false;
-                
-            var invitelink = new UIMenuItem("Invite Link", "");
-            discord.AddItem(invitelink);
-            discord.OnItemSelect += (sender, item, index) =>
+            emsfiresub.MouseEdgeEnabled = false;
+            emsfiresub.ControlDisablingEnabled = false;
+            
+            
+            var ems = new UIMenuItem("EMS", "");
+            emsfiresub.AddItem(ems);
+            emsfiresub.OnItemSelect += (sender, item, index) =>
             {
-                if (item == invitelink)
+                if (item == ems)
                 {
-                    API.SetNotificationTextEntry("STRING");
-                    API.SetNotificationColorNext(4);
-                    API.AddTextComponentString("discord.me/gamersnetworkjoin");
-                    API.SetTextScale(0.5f, 0.5f);
-                    API.SetNotificationMessage("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", false, 0, " ~p~DISCORD", " ~g~Join Here");
-                    API.DrawNotification(true, false);
+                   Game.Player.ChangeModel("s_m_y_autopsy_01"); 
                 }
             };
-        }
-        
-        
-               
-        public MainMenu()
+           
+           var fire = new UIMenuItem("Fire", "");
+            emsfiresub.AddItem(fire);
+            emsfiresub.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == fire)
+                {
+                    Game.Player.ChangeModel("s_m_y_fireman_01");
+                }
+            };
+            
+        }  
+            
+            public MainMenu()
         {
             _menuPool    = new MenuPool();
-            var mainMenu = new UIMenu("GN Police Closet", "Made By ~b~GN_ApexDevil v0.0.4");
+            var mainMenu = new UIMenu("GN Police Locker", "~b~ Made By ApexDevil");
             _menuPool.Add(mainMenu);
                 
             PlayerOptions(mainMenu);
-            PoliceAPIFunctions(mainMenu);
-            Weaponslocker(mainMenu);
-            DiscordLink(mainMenu);
 
-            
-           
             _menuPool.MouseEdgeEnabled = false;
             _menuPool.ControlDisablingEnabled = false;
             _menuPool.RefreshIndex();
