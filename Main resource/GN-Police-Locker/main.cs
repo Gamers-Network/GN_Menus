@@ -85,7 +85,7 @@ namespace GNPolicUniforms
                 }
             };
             
-            var emsfiresub = _menuPool.AddSubMenu(menu, "EMS/Fire");
+            var emsfiresub = _menuPool.AddSubMenu(menu, "EMS/Fire Uniforms");
             for (int i = 0; i < 1; i++) ;
 
             emsfiresub.MouseEdgeEnabled = false;
@@ -113,6 +113,22 @@ namespace GNPolicUniforms
             };
             
         }  
+        
+            var invitelink = new UIMenuItem("Invite Link", "");
+            discord.AddItem(invitelink);
+            discord.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == invitelink)
+                {
+                    API.SetNotificationTextEntry("STRING");
+                    API.SetNotificationColorNext(4);
+                    API.AddTextComponentString("discord.me/gamersnetworkjoin");
+                    API.SetTextScale(0.5f, 0.5f);
+                    API.SetNotificationMessage("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", false, 0, " ~p~DISCORD", " ~g~Join Here");
+                    API.DrawNotification(true, false);
+                }
+            };
+        }
             
             public MainMenu()
         {
@@ -121,6 +137,7 @@ namespace GNPolicUniforms
             _menuPool.Add(mainMenu);
                 
             PlayerOptions(mainMenu);
+            DiscordLink(mainMenu);
 
             _menuPool.MouseEdgeEnabled = false;
             _menuPool.ControlDisablingEnabled = false;
